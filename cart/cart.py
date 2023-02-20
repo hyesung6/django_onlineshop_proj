@@ -11,7 +11,7 @@ class Cart(object):
             cart = self.session[settings.CART_ID] = {}
         self.cart = cart
     
-    def __len__(self):
+    def __len__(self): # 항목이 몇 개 있는지 호출 가능하게 만들어둠
         return sum(item['quantity'] for item in self.cart.values())
 
     def __iter__(self):

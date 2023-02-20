@@ -148,7 +148,7 @@ AWS_SECRET_ACCESS_KEY = AWS_SECRET_ACCESS_KEY
 
 AWS_REGION = 'ap-northeast-2'
 AWS_STORAGE_BUCKET_NAME = 'onlineshop-static'
-AWS_S3_CUSTOM_DOMAIN = f's3.%s.{AWS_REGION}.amazonaws.com/{AWS_STORAGE_BUCKET_NAME}'
+AWS_S3_CUSTOM_DOMAIN = f's3.{AWS_REGION}.amazonaws.com/{AWS_STORAGE_BUCKET_NAME}'
 AWS_S3_FILE_OVERWRITE = False
 AWS_S3_OBJECT_PARAMETERS = {'CacheControl':'max-age=86400'}
 AWS_DEFAULT_ACL = 'public-read'
@@ -156,6 +156,11 @@ AWS_LOCATION = ''
 
 STATIC_URL = f'http://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}'
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# static 파일 외의 다른 파일이 저장될 스토리지
+DEFAULT_FILE_STORAGE = 'config.s3media.MediaStorage'
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
