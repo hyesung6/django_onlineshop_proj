@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.naver',
     'cart',
     'coupon',
+    'order',
 ]
 
 MIDDLEWARE = [
@@ -170,3 +171,7 @@ DEFAULT_FILE_STORAGE = 'config.s3media.MediaStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CART_ID = 'cart_item'
+
+from .iamport_info import *
+IAMPORT_KEY = IAMPORT_KEY
+IAMPORT_SECRET = IAMPORT_SECRET
