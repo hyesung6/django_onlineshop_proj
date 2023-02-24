@@ -172,6 +172,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CART_ID = 'cart_item'
 
-from .iamport_info import *
+from .pay_iamport_info import *
 IAMPORT_KEY = IAMPORT_KEY
 IAMPORT_SECRET = IAMPORT_SECRET
