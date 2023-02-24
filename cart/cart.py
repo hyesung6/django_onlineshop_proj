@@ -1,5 +1,5 @@
 from decimal import Decimal
-from django.conf import settings 
+from django.conf import settings
 
 from shop.models import Product
 from coupon.models import Coupon
@@ -13,7 +13,7 @@ class Cart(object):
         self.cart = cart
         self.coupon_id = self.session.get('coupon_id')
 
-    def __len__(self): # 항목이 몇 개 있는지 호출 가능하게 만들어둠
+    def __len__(self):
         return sum(item['quantity'] for item in self.cart.values())
 
     def __iter__(self):
@@ -22,8 +22,9 @@ class Cart(object):
         products = Product.objects.filter(id__in=product_ids)
 
         for product in products:
-            self.cart(str(product.id))['product'] = product
-        for item in self.values():
+            self.cart[str(product.id)]['product'] = product
+
+        for item in self.cart.values():
             item['price'] = Decimal(item['price'])
             item['total_price'] = item['price'] * item['quantity']
 
@@ -38,9 +39,8 @@ class Cart(object):
             self.cart[product_id]['quantity'] = quantity
         else:
             self.cart[product_id]['quantity'] += quantity
-        
-        self.save()
 
+        self.save()
 
     def save(self):
         self.session[settings.CART_ID] = self.cart
@@ -56,11 +56,11 @@ class Cart(object):
         self.session[settings.CART_ID] = {}
         self.session['coupon_id'] = None
         self.session.modified = True
-        
-    def get_product_total(self):
-        return sum(item['price']*item['quantity'] for item in self.cart.values())
 
-    @property   # property decorator로 사용시 함수가 아니라 속성처럼 작동함
+    def get_product_total(self,call='test'):
+        return sum(Decimal(item['price'])*item['quantity'] for item in self.cart.values())
+
+    @property
     def coupon(self):
         if self.coupon_id:
             return Coupon.objects.get(id=self.coupon_id)
