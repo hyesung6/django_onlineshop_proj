@@ -2,4 +2,6 @@ config/aws_rds_info.py
 config/aws_s3_info.py
 config/secret_key.py
 config/s3_PublicReadGetObject.json
+config/iamport_info.py
 django-onlineshop-venv/Lib
+
